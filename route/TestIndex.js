@@ -135,6 +135,7 @@ export default function Home() {
 
   }
 
+  console.log('TESTSETEST');
 
   React.useEffect(() => {
     setIsSSR(false);
