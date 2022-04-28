@@ -52,7 +52,7 @@ export default function Home() {
         useTTML: true
       },
       vhs: {
-        withCredentials: false,
+        withCredentials: true,
         overrideNative: !videojs?.browser?.IS_SAFARI
       },
       nativeCaptions: false,
@@ -135,13 +135,13 @@ export default function Home() {
 
   }
 
-  console.log('TESTSETEST');
+  // console.log('TESTSETEST');
 
-  React.useEffect(() => {
-    setIsSSR(false);
-  }, []);
+  // React.useEffect(() => {
+  //   setIsSSR(false);
+  // }, []);
 
-  if (isSSR) return null
+  // if (isSSR) return null
   return (
     <div>
       <Test options={videoJsOptions} onReady={handlePlayerReady} />
