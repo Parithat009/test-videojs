@@ -113,7 +113,7 @@ export default function Home() {
       if (valueType === 'dash') {
         playerRef.current.src({
           src: url,
-          type: "application/dash+xml",
+          type: "application/x-mpegURL",
           keySystemOptions: [
             {
               name: 'com.apple.fps.1_0',
