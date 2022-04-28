@@ -52,7 +52,7 @@ export default function Home() {
         useTTML: true
       },
       vhs: {
-        withCredentials: true,
+        withCredentials: false,
         overrideNative: !videojs?.browser?.IS_SAFARI
       },
       nativeCaptions: false,
@@ -105,33 +105,32 @@ export default function Home() {
       } else if (valueType === 'hls') {
         playerRef.current.src([{
           src: url,
-          type: "application/x-mpegURL",
-          // keySystemOptions: [
-          //   {
-          //     name: 'com.widevine.alpha',
-          //     options: {
-          //       licenseUrl: license,
-          //     },
-          //   }
-          // ]
+          type: "application/x-mpegURL"
         }])
       }
 
+    } else {
+      if (valueType === 'dash') {
+        playerRef.current.src({
+          src: url,
+          type: "application/x-mpegURL",
+          keySystemOptions: [
+            {
+              name: 'com.apple.fps.1_0',
+              options: {
+                licenseUrl: license,
+              },
+            }
+          ],
+        })
+      } else if (valueType === 'hls') {
+        playerRef.current.src([{
+          src: url,
+          type: "application/x-mpegURL"
+        }])
+      }
+      
     }
-    // else {
-    //   playerRef.current.src({
-    //     src: displayInfo?.streamUrl,
-    //     type: "application/x-mpegURL",
-    //     keySystemOptions: [
-    //       {
-    //         name: 'com.apple.fps.1_0',
-    //         options: {
-    //           licenseUrl: displayInfo?.licenseUrl,
-    //         },
-    //       }
-    //     ],
-    //   })
-    // }
 
   }
 
@@ -151,8 +150,8 @@ export default function Home() {
       <input style={{ width: '400px' }} value={license} onChange={(e) => setLicense(e.target.value)} />
       <br /><br />
 
-      <button style={{  marginRight: '16px' }} onClick={() => onTestStream('dash')}>Test Stream DASH</button>
-      <button  style={{  marginRight: '16px' }} onClick={() => onTestStream('hls')}>Test Stream HLS</button>
+      <button style={{ marginRight: '16px' }} onClick={() => onTestStream('dash')}>Test Stream DASH</button>
+      <button style={{ marginRight: '16px' }} onClick={() => onTestStream('hls')}>Test Stream HLS</button>
       <button onClick={() => { setUrl(''); setLicense('') }}>CLEAR URL</button>
     </div >
   );
