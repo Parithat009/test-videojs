@@ -55,9 +55,9 @@ export default function Home() {
         withCredentials: false,
         overrideNative: !videojs?.browser?.IS_SAFARI
       },
-      nativeCaptions: false,
-      nativeAudioTracks: false,
-      nativeVideoTracks: false
+      nativeCaptions: true,
+      nativeAudioTracks: true,
+      nativeVideoTracks: true
     },
     sources: []
   }
