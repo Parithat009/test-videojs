@@ -45,7 +45,7 @@ export const VideoJS = (props) => {
 
   return (
     <div >
-      <h1>TEST ff</h1>
+      <h1>TEST</h1>
       <div data-vjs-player>
         <video
           style={{ width: '100%' }}
