@@ -90,7 +90,7 @@ export default function Home() {
 
     if (!videojs?.browser?.IS_SAFARI) {
       if (valueType === 'dash') {
-        playerRef.current.src([{
+        playerRef.current.src({
           src: url,
           type: "application/dash+xml",
           keySystemOptions: [
@@ -101,19 +101,19 @@ export default function Home() {
               },
             }
           ]
-        }])
+        })
       } else if (valueType === 'hls') {
-        playerRef.current.src([{
+        playerRef.current.src({
           src: url,
           type: "application/x-mpegURL"
-        }])
+        })
       }
 
     } else {
       if (valueType === 'dash') {
         playerRef.current.src({
           src: url,
-          type: "application/x-mpegURL",
+          type: "application/dash+xml",
           keySystemOptions: [
             {
               name: 'com.apple.fps.1_0',
@@ -129,7 +129,7 @@ export default function Home() {
           type: "application/x-mpegURL"
         }])
       }
-      
+
     }
 
   }
