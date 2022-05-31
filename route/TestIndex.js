@@ -108,7 +108,7 @@ export default function Home() {
             {
               name: 'com.widevine.alpha',
               options: {
-                licenseUrl: license,
+                serverURL: license,
               },
             }
           ]
