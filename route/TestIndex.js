@@ -55,6 +55,10 @@ export default function Home() {
         withCredentials: false,
         overrideNative: !videojs?.browser?.IS_SAFARI
       },
+      // hls: {
+      //   withCredentials: true,
+      //   overrideNative: !videojs?.browser?.IS_SAFARI
+      // },
       nativeCaptions: false,
       nativeAudioTracks: false,
       nativeVideoTracks: false
@@ -76,6 +80,11 @@ export default function Home() {
 
     player.on('ready', () => {
       console.log('player will readyreadyready');
+
+      player.src([{
+        src: 'https://d2zihajmogu5jn.cloudfront.net/bipbop-advanced/bipbop_16x9_variant.m3u8',
+        type: "application/x-mpegURL"
+      }])
     })
 
     player.on('canplay', () => {
@@ -88,9 +97,11 @@ export default function Home() {
   const onTestStream = (valueType) => {
     if (!playerRef.current) return
 
+    console.log("BROWSERRR SAFARI", videojs?.browser?.IS_SAFARI);
+
     if (!videojs?.browser?.IS_SAFARI) {
       if (valueType === 'dash') {
-        playerRef.current.src({
+        playerRef.current.src([{
           src: url,
           type: "application/dash+xml",
           keySystemOptions: [
@@ -101,17 +112,17 @@ export default function Home() {
               },
             }
           ]
-        })
+        }])
       } else if (valueType === 'hls') {
-        playerRef.current.src({
+        playerRef.current.src([{
           src: url,
           type: "application/x-mpegURL"
-        })
+        }])
       }
 
     } else {
       if (valueType === 'dash') {
-        playerRef.current.src({
+        playerRef.current.src([{
           src: url,
           type: "application/x-mpegURL",
           keySystemOptions: [
@@ -119,10 +130,11 @@ export default function Home() {
               name: 'com.apple.fps.1_0',
               options: {
                 licenseUrl: license,
+                certificateUri: 'https://kdcid-preprod.stm.trueid.net/fairplay_v3.cer'
               },
             }
           ],
-        })
+        }])
       } else if (valueType === 'hls') {
         playerRef.current.src([{
           src: url,
@@ -143,6 +155,8 @@ export default function Home() {
   // if (isSSR) return null
   return (
     <div>
+      <p>{process.env.NEXT_PUBLIC_URL}</p>
+      <p>{process.env.NEXT_PUBLIC_ENV}</p>
       <Test options={videoJsOptions} onReady={handlePlayerReady} />
       <br /><br />
 
